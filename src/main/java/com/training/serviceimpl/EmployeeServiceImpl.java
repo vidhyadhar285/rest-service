@@ -2,13 +2,17 @@ package com.training.serviceimpl;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.tarining.mongodb.repository.EmployeeRepository;
 import com.training.DTO.EmployeeDTO;
+import com.training.mongodb.Employee;
 import com.training.service.EmployeeService;
 
 @Service
@@ -27,6 +31,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 		employeeDTOTwo.setEmpName("miller");
 		employeeRepo.put(employeeDTOTwo.getEmpId(), employeeDTOTwo);
 	}
+	
+	@Autowired
+	private EmployeeRepository employeeRepository;
 	
 
 	@Override
@@ -55,6 +62,38 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public ResponseEntity<Collection<EmployeeDTO>> viewEmployee() {
 		return new ResponseEntity<>(employeeRepo.values(), HttpStatus.OK);
+		
+	}
+
+	@Override
+	public List<Employee> viewMongoEmployee() {
+		return employeeRepository.findAll();
+	}
+	
+	@Override
+	public ResponseEntity<String> addMongoEmployee(EmployeeDTO employeeDTO) {
+		Employee employee=new Employee();
+		employee.setEmpId(employeeDTO.getEmpId());
+		employee.setEmpName(employeeDTO.getEmpName());
+		employeeRepository.save(employee);
+		return new ResponseEntity<>("employee is created successfully", HttpStatus.CREATED);
+		
+	}
+	
+	@Override
+	public ResponseEntity<String> updateMongoEmployee(EmployeeDTO employeeDTO,String id) {
+		Employee employee=employeeRepository.fetchByEmpId(id);
+		employee.setEmpName(employeeDTO.getEmpName());
+		employeeRepository.save(employee);
+		return new ResponseEntity<>("employee is updated successsfully", HttpStatus.OK);
+		
+	}
+	
+	@Override
+	public ResponseEntity<String> deleteMongoEmployee(String id) {
+		Employee employee=employeeRepository.fetchByEmpId(id);
+		employeeRepository.delete(employee);
+		return new ResponseEntity<>("employee is deleted successsfully", HttpStatus.OK);
 		
 	}
 
