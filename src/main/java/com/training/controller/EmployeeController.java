@@ -25,23 +25,23 @@ public class EmployeeController {
 
 	
 
-	@DeleteMapping(value = "/products/{id}")
+	@DeleteMapping(value = "/employee/{id}")
 	public ResponseEntity<String> delete(@PathVariable("id") String id) {
 		return employeeService.deleteEmployee(id);
 	}
 
-	@PutMapping(value = "/products/{id}")
-	public ResponseEntity<String> updateProduct(@PathVariable("id") String id, @RequestBody EmployeeDTO employeeDTO) {
+	@PutMapping(value = "/employee/{id}")
+	public ResponseEntity<String> updateEmployee(@PathVariable("id") String id, @RequestBody EmployeeDTO employeeDTO) {
 		return employeeService.updateEmployee(employeeDTO, id);
 	}
 
-	@PostMapping(value = "/products")
-	public ResponseEntity<String> createProduct(@RequestBody EmployeeDTO employeeDTO) {
+	@PostMapping(value = "/employee")
+	public ResponseEntity<String> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
 		return employeeService.addEmployee(employeeDTO);
 	}
 
-	@GetMapping(value = "/products")
-	public ResponseEntity<Collection<EmployeeDTO>> getProduct() {
+	@GetMapping(value = "/employees")
+	public ResponseEntity<Collection<EmployeeDTO>> getEmployees() {
 		return employeeService.viewEmployee();
 	}
 
