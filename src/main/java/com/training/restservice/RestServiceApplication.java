@@ -1,7 +1,10 @@
 package com.training.restservice;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.info.MapInfoContributor;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -54,5 +57,13 @@ public class RestServiceApplication {
 	 
 	    return converter;
 	  }
+	  
+	  @Bean
+	  public MapInfoContributor mapInfoContributor() {
+	      return new MapInfoContributor(new HashMap<String, Object>() {{
+	          put("Training", "Spring Boot");
+	      }});
+	  }
+	 
 
 }
