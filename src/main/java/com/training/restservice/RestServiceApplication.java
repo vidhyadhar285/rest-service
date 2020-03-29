@@ -2,6 +2,8 @@ package com.training.restservice;
 
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.info.MapInfoContributor;
@@ -30,6 +32,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableMongoRepositories("com.tarining.mongodb.repository")
 public class RestServiceApplication {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(RestServiceApplication.class);
+	
 	@Autowired 
 	private MongoDbFactory mongoDbFactory;
 	 
@@ -37,7 +41,9 @@ public class RestServiceApplication {
 	  mongoMappingContext;
 
 	public static void main(String[] args) {
+		LOGGER.info("Training Application Started");
 		SpringApplication.run(RestServiceApplication.class, args);
+		
 	}
 	
 	@Bean
