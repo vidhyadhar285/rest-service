@@ -26,7 +26,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @ComponentScan(basePackages = {
 		"com.training.controller",
-		"com.training.serviceimpl"
+		"com.training.serviceimpl",
+		"com.training.service"
 		})
 @EnableSwagger2
 @EnableMongoRepositories("com.tarining.mongodb.repository")
